@@ -78,9 +78,7 @@ namespace TimeCanvas
                     case "RESET_ALL":
                         for (int id = 1; id <= 18; id++)
                         {
-                            table.Delete();
-                            table.Create();
-                            table.Initialize("id, time, task, isChecked", $"{id}, '00:00:00', '', 0");
+                            table.Update("time='00:00:00', task='', isChecked=0", $"id={id}");
                         }
                         break;
                 }

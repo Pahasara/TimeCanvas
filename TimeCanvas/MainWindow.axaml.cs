@@ -18,12 +18,19 @@ namespace TimeCanvas
 
         public MainWindow()
         {
+            //Initiate(); // To initiate tables for the first time [database must be deleted before execute this]
             InitializeComponent();
             selectedDay = dayOfWeek;
             Update_Buttons();
             dataManager.SetConnection(conn);
             Load();
             StartClocks();
+        }
+
+        public void Initiate()
+        {
+            dataManager.CreateTables();
+            dataManager.InitializeTables();
         }
 
         private void StartClocks()
@@ -63,12 +70,6 @@ namespace TimeCanvas
             clickedButton.Background = new SolidColorBrush(Color.FromArgb(255,23,140,225));
         }
 
-        public void Initiate(object sender, RoutedEventArgs e)
-        {
-            dataManager.CreateTables();
-            dataManager.InitializeTables();
-        }
-
         private void Load_OnClick(object sender, RoutedEventArgs e)
         {
             Load();
@@ -91,7 +92,7 @@ namespace TimeCanvas
 
         private void RESET_ALL(object sender, RoutedEventArgs e)
         {
-            ManageControls("RESET_ALL");
+            dataManager.ResetTables();
             Load();
         }
 
@@ -193,10 +194,6 @@ namespace TimeCanvas
                         txtTasks[i].Text = "";
                         checkBoxes[i].IsChecked = false;
                         Update();
-                        break;
-
-                    case "RESET_ALL":
-                        dataManager.ResetTables();
                         break;
                 }
             }
