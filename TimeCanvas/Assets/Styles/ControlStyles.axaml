@@ -1,0 +1,84 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+  <!-- Window -->
+  <Style Selector="Window">
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="FontFamily" Value="{StaticResource Orbitron}"/>
+  </Style>
+
+  <!-- Label -->
+  <Style Selector="Label">
+    <Setter Property="Margin" Value="15 0"/>
+  </Style>
+
+  <!-- Label >> STATUS BAR -->
+  <Style Selector="Label.Status">
+    <Setter Property="FontFamily" Value="Arial"/>
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="FontStyle" Value="Italic"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="Foreground" Value="#999898"/>
+  </Style>
+
+  <!-- TextBox -->
+  <Style Selector="TextBox">
+    <Setter Property="Margin" Value="10 5 0 5"/>
+    <Setter Property="Width" Value="250"/>
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="BorderBrush" Value="#325262"/>
+    <Setter Property="FontFamily" Value="{StaticResource RussoOne}"/>
+    <Setter Property="TextAlignment" Value="Center"/>
+  </Style>
+
+  <!-- CheckBox -->
+  <Style Selector="CheckBox">
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="Margin" Value="5 5 5 5"/>
+  </Style>
+
+  <!-- Button -->
+  <Style Selector="Button">
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="Foreground" Value="#F9F9F9"/>
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Background" Value="#282828"/>
+    <Setter Property="BorderBrush" Value="#363636"/>
+  </Style>
+
+  <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#323232" />
+    <Setter Property="TextBlock.Foreground" Value="#FEFEFE" />
+    <Setter Property="BorderBrush" Value="#484848"/>
+  </Style>
+
+  <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#080808" />
+    <Setter Property="TextBlock.Foreground" Value="#FFFFFF" />
+    <Setter Property="BorderBrush" Value="#006699"/>
+  </Style>
+
+  <!-- TimePicker -->
+  <Style Selector="TimePicker">
+    <Setter Property="ClockIdentifier" Value="24HourClock"/>
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="BorderBrush" Value="#323232"/>
+  </Style>
+
+  <!-- TextBox:pointerover -->
+  <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="BorderBrush">
+      <SolidColorBrush Color="#328899"/>
+    </Setter>
+  </Style>
+
+  <!-- TextBox:focus -->
+  <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+    <Setter Property="BorderBrush">
+      <SolidColorBrush Color="#3288AA"/>
+    </Setter>
+  </Style>
+
+</Styles>
