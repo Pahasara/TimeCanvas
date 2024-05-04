@@ -5,7 +5,7 @@ TimeCanvas is a powerful time management and task organization software designed
 ### Downloads ###
 
 [![ZIP](https://img.shields.io/badge/bin.zip%20[57.9MB]-blue)](https://github.com/Pahasara/TimeCanvas/releases/download/1.0.1/bin.zip)
-[![SETUP](https://img.shields.io/badge/Setup.exe%20[5.41MB]-darkgreen)](https://github.com/Pahasara/TimeCanvas/releases/download/1.0.1/setup.exe)
+[![SETUP](https://img.shields.io/badge/Setup.exe%20[42.8MB]-darkgreen)](https://github.com/Pahasara/TimeCanvas/releases/download/1.0.1/setup.exe)
 
 <img width="848" alt="Untitled" src="https://github.com/Pahasara/TimeCanvas/assets/46932317/f6c10253-e259-418c-9d0c-61930ce730e3">
 
