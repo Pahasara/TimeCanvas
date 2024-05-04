@@ -3,7 +3,6 @@ using Avalonia.Interactivity;
 using DvNET.Core;
 using System;
 using System.Data.SQLite;
-using Avalonia.Input;
 using Avalonia.Threading;
 using Avalonia.Media;
 
@@ -21,7 +20,6 @@ namespace TimeCanvas
             //Initiate(); // To initiate tables for the first time [database must be deleted before execute this]
             InitializeComponent();
             selectedDay = dayOfWeek;
-            Update_Buttons();
             dataManager.SetConnection(conn);
             Load();
             StartClocks();
@@ -35,7 +33,8 @@ namespace TimeCanvas
 
         private void StartClocks()
         {
-            new DispatcherTimer(TimeSpan.FromMicroseconds(100000), DispatcherPriority.Normal, TimerTick).Start();
+            new DispatcherTimer(TimeSpan.FromMicroseconds(300000), DispatcherPriority.Normal, TimerTick).Start();
+            new DispatcherTimer(TimeSpan.FromMicroseconds(100000), DispatcherPriority.Normal, ControlsTimerTick).Start();
         }
 
         void TimerTick(object sender, EventArgs e)
@@ -44,30 +43,75 @@ namespace TimeCanvas
             ShowProgress();
         }
 
+        void ControlsTimerTick(object sender, EventArgs e)
+        {
+            Update_Controls();
+        }
+
         private void DayButton_OnClick(object sender, RoutedEventArgs e)
         {
             var clickedButton = (Button)sender;
-
             string buttonText = clickedButton.Content.ToString();
             selectedDay = buttonText;
-            Update_Buttons();
             Load();
+
+            // Return to top of the scrollViewer
+            scrollViewer1.PageUp();
+            scrollViewer1.PageUp();
+            scrollViewer1.PageUp();
         }
 
-        private void Update_Buttons()
+        private void Update_Controls()
         {
-            Button[] buttons = [ btnSunday, btnMonday, btnTuesday, btnWednesday, btnThursday, btnFriday, btnSaturday ];
-            Button clickedButton = buttons[0];
+            Button[] buttons = [btnSunday, btnMonday, btnTuesday, btnWednesday, btnThursday, btnFriday, btnSaturday];
 
             foreach (Button button in buttons)
             {
                 button.Background = new SolidColorBrush(Color.FromArgb(255, 28, 28, 28));
+                button.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 36, 36, 36));
                 if (button.Content.ToString() == selectedDay)
-                { 
-                    clickedButton = button; 
+                {
+                    button.Background = new SolidColorBrush(Color.FromArgb(255, 23, 140, 225));
+                    button.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 102, 153));
                 }
             }
-            clickedButton.Background = new SolidColorBrush(Color.FromArgb(255,23,140,225));
+
+            TimePicker[] timePickers =
+            [
+                timePicker1, timePicker2, timePicker3, timePicker4, timePicker5, timePicker6, timePicker7, timePicker8, timePicker9,
+                timePicker10, timePicker11, timePicker12, timePicker13, timePicker14, timePicker15, timePicker16, timePicker17, timePicker18
+            ];
+
+            TextBox[] txtTasks =
+            [
+                txtTask1, txtTask2, txtTask3, txtTask4, txtTask5, txtTask6, txtTask7, txtTask8, txtTask9,
+                txtTask10, txtTask11, txtTask12, txtTask13, txtTask14, txtTask15, txtTask16, txtTask17, txtTask18
+            ];
+
+            int i = 0;
+            
+
+            while(i < timePickers.Length)
+            {
+                TimeSpan time = DataManager.GetTime("00:00:00");
+                if (timePickers[i].SelectedTime == time && txtTasks[i].Text == "")
+                {
+                    timePickers[i].Foreground = new SolidColorBrush(Color.FromArgb(255, 150, 150, 150));
+                    txtTasks[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 48, 48, 48));
+                    timePickers[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 48, 48, 48));
+                    timePickers[i].Background = new SolidColorBrush(Color.FromArgb(255, 12, 12, 12));
+                    txtTasks[i].Background = new SolidColorBrush(Color.FromArgb(255, 12, 12, 12));
+                }
+                else
+                {
+                    timePickers[i].Foreground = new SolidColorBrush(Color.FromArgb(255, 249, 249, 249));
+                    txtTasks[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 50, 82, 98));
+                    timePickers[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 50, 82, 98));
+                    timePickers[i].Background = new SolidColorBrush(Color.FromArgb(255, 36, 36, 36));
+                    txtTasks[i].Background = new SolidColorBrush(Color.FromArgb(255, 36, 36, 36));
+                }
+                i++;
+            }
         }
 
         private void Load_OnClick(object sender, RoutedEventArgs e)
@@ -90,10 +134,9 @@ namespace TimeCanvas
             ManageControls("RESET");
         }
 
-        private void RESET_ALL(object sender, RoutedEventArgs e)
+        private void CLEAR(object sender, RoutedEventArgs e)
         {
-            dataManager.ResetTables();
-            Load();
+            ManageControls("CLEAR");
         }
 
         private void ShowProgress()
@@ -136,7 +179,7 @@ namespace TimeCanvas
             float percentage = Arithmetic.GetPercentage(completedTasks, (float)totalTasks);
             progressBar1.Value = percentage;
             lblProgress.Content = ((int)percentage).ToString() + " %";
-            lblCount.Content = $"{completedTasks} / {totalTasks}";
+            lblCount.Content = $"({completedTasks} / {totalTasks})";
         }
 
         private void ValidCheckBox(CheckBox checkBox, TextBox txtBox)
@@ -190,6 +233,11 @@ namespace TimeCanvas
                         break;
 
                     case "RESET":
+                        checkBoxes[i].IsChecked = false;
+                        Update();
+                        break;
+
+                    case "CLEAR":
                         timePickers[i].SelectedTime = DataManager.GetTime("00:00:00");
                         txtTasks[i].Text = "";
                         checkBoxes[i].IsChecked = false;
