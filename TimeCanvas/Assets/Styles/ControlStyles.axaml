@@ -13,6 +13,11 @@
     <Setter Property="Margin" Value="15 0"/>
   </Style>
 
+  <!-- Label >> COLUMN -->
+  <Style Selector="Label.Column">
+    <Setter Property="Foreground" Value="#23A2F5"/>
+  </Style>
+  
   <!-- Label >> STATUS BAR -->
   <Style Selector="Label.Status">
     <Setter Property="FontFamily" Value="Arial"/>
@@ -22,14 +27,20 @@
     <Setter Property="Foreground" Value="#999898"/>
   </Style>
 
+  <!--TimePicker -->
+  <Style Selector="TimePicker">
+    <Setter Property="Background" Value="#121212"/>
+  </Style>
+  
   <!-- TextBox -->
   <Style Selector="TextBox">
-    <Setter Property="Margin" Value="10 5 0 5"/>
-    <Setter Property="Width" Value="250"/>
-    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="Margin" Value="15 5 5 5"/>
+    <Setter Property="Width" Value="375"/>
+    <Setter Property="CornerRadius" Value="13"/>
     <Setter Property="BorderBrush" Value="#325262"/>
     <Setter Property="FontFamily" Value="{StaticResource RussoOne}"/>
     <Setter Property="TextAlignment" Value="Center"/>
+    <Setter Property="Background" Value="#121212"/>
   </Style>
 
   <!-- CheckBox -->
@@ -41,17 +52,18 @@
   <!-- Button -->
   <Style Selector="Button">
     <Setter Property="FontSize" Value="13"/>
+    <Setter Property="Margin" Value="5"/>
     <Setter Property="FontWeight" Value="Bold"/>
     <Setter Property="Foreground" Value="#F9F9F9"/>
-    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="CornerRadius" Value="5" />
     <Setter Property="Background" Value="#282828"/>
     <Setter Property="BorderBrush" Value="#363636"/>
   </Style>
 
   <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-    <Setter Property="Background" Value="#323232" />
+    <Setter Property="Background" Value="#326699" />
     <Setter Property="TextBlock.Foreground" Value="#FEFEFE" />
-    <Setter Property="BorderBrush" Value="#484848"/>
+    <Setter Property="BorderBrush" Value="#3688AA"/>
   </Style>
 
   <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
@@ -60,6 +72,18 @@
     <Setter Property="BorderBrush" Value="#006699"/>
   </Style>
 
+  <!-- Button >> RESET -->
+  <Style Selector="Button.Reset:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#993232" />
+    <Setter Property="TextBlock.Foreground" Value="#FEFEFE" />
+    <Setter Property="BorderBrush" Value="#CC4420"/>
+  </Style>
+  <Style Selector="Button.Reset:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#080808" />
+    <Setter Property="TextBlock.Foreground" Value="#FFFFFF" />
+    <Setter Property="BorderBrush" Value="#993800"/>
+  </Style>
+  
   <!-- TimePicker -->
   <Style Selector="TimePicker">
     <Setter Property="ClockIdentifier" Value="24HourClock"/>
