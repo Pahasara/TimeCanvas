@@ -17,10 +17,25 @@ namespace TimeCanvas
 
         public MainWindow()
         {
-            //Initiate(); // To initiate tables for the first time [database must be deleted before execute this]
             InitializeComponent();
-            selectedDay = dayOfWeek;
+            try
+            {
+                Initiate(); // To initiate tables for the first time
+            }
+            catch 
+            { 
+
+            }
+            finally
+            {
+                Boot();
+            }
+        }
+
+        private void Boot()
+        {
             dataManager.SetConnection(conn);
+            selectedDay = dayOfWeek;
             Load();
             StartClocks();
         }
