@@ -32,7 +32,7 @@
     <StackPanel>
       <Panel HorizontalAlignment="Center" Margin="0 5 0 0">
         <Grid ColumnDefinitions="400, 400">
-          <Label Classes="Column" Grid.Column="0" Content="Time" Margin="0 0 30 0" HorizontalAlignment="Center"/>
+          <Label Classes="Column" Grid.Column="0" Content="Time" Margin="0 0 35 0" HorizontalAlignment="Center"/>
           <Label Classes="Column" Grid.Column="1" Content="Task" Margin="92 0 0 0" HorizontalAlignment="Left"/>
         </Grid>
       </Panel>
@@ -103,29 +103,62 @@
                     <TextBox x:Name="txtTask18" Grid.Row="9" Grid.Column="4" />
                     <CheckBox x:Name="checkBox18" Grid.Row="9" Grid.Column="5" />
                   </Grid>
+                  <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                    RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                    <TimePicker x:Name="timePicker19" Grid.Row="1" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask19" Grid.Row="1" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox19" Grid.Row="1" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker20" Grid.Row="2" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask20" Grid.Row="2" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox20" Grid.Row="2" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker21" Grid.Row="3" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask21" Grid.Row="3" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox21" Grid.Row="3" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker22" Grid.Row="4" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask22" Grid.Row="4" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox22" Grid.Row="4" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker23" Grid.Row="5" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask23" Grid.Row="5" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox23" Grid.Row="5" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker24" Grid.Row="6" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask24" Grid.Row="6" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox24" Grid.Row="6" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker25" Grid.Row="7" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask25" Grid.Row="7" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox25" Grid.Row="7" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker26" Grid.Row="8" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask26" Grid.Row="8" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox26" Grid.Row="8" Grid.Column="5" />
+                    <TimePicker x:Name="timePicker27" Grid.Row="9" Grid.Column="3"/>
+                    <TextBox x:Name="txtTask27" Grid.Row="9" Grid.Column="4" />
+                    <CheckBox x:Name="checkBox27" Grid.Row="9" Grid.Column="5" />
+                  </Grid>
                 </StackPanel>
               </ScrollViewer>
             </Border>
-          </Panel>      
+          </Panel>
+      <ProgressBar Name="progressBar1" Grid.Column="1" CornerRadius="5" Margin="5"/>
     </StackPanel>
 
     <StackPanel>
-      <Panel HorizontalAlignment="Center">
-        <Grid Margin="5" HorizontalAlignment="Left"
-            ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
-          <Label Content="Completed" Grid.Column="0" Margin="0 11 0 5"/>
-          <ProgressBar Name="progressBar1" Grid.Column="1" CornerRadius="10" Height="15" Margin="5 0 0 0" />
-          <Label Content="70%" Classes="Column" Grid.Column="2" Width="50" Name="lblProgress" Margin="5 11 20 5"/>
-          <Label Content="0/18" Classes="Column" Grid.Column="3" Width="50" Name="lblCount" Margin="5 11 30 5"/>
-          <Button Grid.Column="4" Content="RESET" Classes="Reset" Click="RESET" Margin="5"/>
-          <Button Grid.Column="5" Content="CLEAR" Classes="Reset" Click="CLEAR" Margin="5"/>
+      <Panel>
+        <Grid HorizontalAlignment="Left"
+              ColumnDefinitions="Auto, Auto" Margin="60 0 0 0">
+          <Label Content="Completed" Grid.Column="0" Margin="10 11 0 5"/>
+          <Label Content="0%" Classes="Column" Grid.Column="2" Width="80" Name="lblProgress" Margin="5 11 20 5"/>
+        </Grid>
+        <Label Content="0/18" Classes="Column" Grid.Column="3" Width="80" Name="lblCount" Margin="5 11 30 5" HorizontalAlignment="Center"/>
+        <Grid Margin="0 0 60 0" HorizontalAlignment="Right"
+            ColumnDefinitions="Auto, Auto">
+          <Button Grid.Column="0" Content="RESET" Classes="Reset" Click="RESET" Margin="5"/>
+          <Button Grid.Column="1" Content="CLEAR" Classes="Reset" Click="CLEAR" Margin="5"/>
         </Grid>
       </Panel>
     </StackPanel>
     
     <StackPanel>
       <Panel Margin="" Background="#121212">
-          <Label x:Name="lblApp" Classes="Status"  Margin="10 2 0 2" Content="TimeCanvas v1.0.1" HorizontalAlignment="Left"></Label>
+          <Label x:Name="lblApp" Classes="Status"  Margin="10 2 0 2" Content="TimeCanvas v1.0.2" HorizontalAlignment="Left"></Label>
           <Label x:Name="lblAuthor" Classes="Status"  Margin="0 2 0 2" Content="github.com/pahasara/TimeCanvas" HorizontalAlignment="Center"></Label>
           <Label x:Name="lblCompany" Classes="Status"  Margin="0 2 10 2" Content="DvNET SYSTEMS" HorizontalAlignment="Right"></Label>
       </Panel>
