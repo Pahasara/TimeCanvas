@@ -8,6 +8,9 @@ namespace TimeCanvas
     {
         private SQLiteConnection conn = new SQLiteConnection("Data Source = TimeCanvas.db; version = 3; New = True; Compress = True;");
 
+        private short numberOfRows = 27 + 1; // number of rows in the UI + 1
+
+
         public void SetConnection(SQLiteConnection conn)
         {
             this.conn = conn;
@@ -50,7 +53,7 @@ namespace TimeCanvas
         public void ResetSingleTable(string nameOfTable)
         {
             Table table = new Table(conn, nameOfTable, "");
-            for (int id = 1; id <= 18; id++)
+            for (int id = 1; id <= numberOfRows; id++)
             {
                 table.Update("time='00:00:00', task='', isChecked=0", $"id={id}");
             }
@@ -70,13 +73,13 @@ namespace TimeCanvas
                         table.Create();
                         break;
                     case "INITIALIZE":
-                        for (int id = 1; id <= 18; id++)
+                        for (int id = 1; id <= numberOfRows; id++)
                         {
                             table.Initialize("id, time, task, isChecked", $"{id}, '00:00:00', '', 0");
                         }
                         break;
                     case "RESET_ALL":
-                        for (int id = 1; id <= 18; id++)
+                        for (int id = 1; id <= numberOfRows; id++)
                         {
                             table.Update("time='00:00:00', task='', isChecked=0", $"id={id}");
                         }
