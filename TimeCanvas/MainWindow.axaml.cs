@@ -30,7 +30,7 @@ namespace TimeCanvas
             {
                 Boot();
             }
-        }
+        }        
 
         private void Boot()
         {
@@ -48,18 +48,18 @@ namespace TimeCanvas
 
         private void StartClocks()
         {
-            new DispatcherTimer(TimeSpan.FromMicroseconds(300000), DispatcherPriority.Normal, TimerTick).Start();
+            new DispatcherTimer(TimeSpan.FromMicroseconds(500000), DispatcherPriority.Normal, TimerTick).Start();
             new DispatcherTimer(TimeSpan.FromMicroseconds(100000), DispatcherPriority.Normal, ControlsTimerTick).Start();
         }
 
         void TimerTick(object sender, EventArgs e)
         {
             Update();
-            ShowProgress();
         }
 
         void ControlsTimerTick(object sender, EventArgs e)
         {
+            ShowProgress();
             Update_Controls();
         }
 
@@ -74,6 +74,41 @@ namespace TimeCanvas
             scrollViewer1.PageUp();
             scrollViewer1.PageUp();
             scrollViewer1.PageUp();
+        }
+
+        private TimePicker[] GetTimePickers() {
+            TimePicker [] timePickers =
+            [
+               timePicker1, timePicker2, timePicker3, timePicker4, timePicker5, timePicker6, timePicker7, timePicker8, timePicker9,
+                timePicker10, timePicker11, timePicker12, timePicker13, timePicker14, timePicker15, timePicker16, timePicker17, timePicker18,
+                timePicker19, timePicker20, timePicker21, timePicker22, timePicker23, timePicker24, timePicker25, timePicker26, timePicker27
+            ];
+
+            return timePickers;
+        }
+
+        private TextBox[] GetTextBoxes()
+        {
+            TextBox[] textBoxes =
+            [
+                txtTask1, txtTask2, txtTask3, txtTask4, txtTask5, txtTask6, txtTask7, txtTask8, txtTask9,
+                txtTask10, txtTask11, txtTask12, txtTask13, txtTask14, txtTask15, txtTask16, txtTask17, txtTask18,
+                txtTask19, txtTask20, txtTask21, txtTask22, txtTask23, txtTask24, txtTask25, txtTask26, txtTask27
+            ];
+
+            return textBoxes;
+        }
+
+        private CheckBox[] GetCheckBoxes()
+        {
+            CheckBox[] checkBoxes =
+            [
+                checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9,
+                checkBox10, checkBox11, checkBox12, checkBox13, checkBox14, checkBox15, checkBox16, checkBox17, checkBox18,
+                checkBox19, checkBox20, checkBox21, checkBox22, checkBox23, checkBox24, checkBox25, checkBox26, checkBox27
+            ];
+
+            return checkBoxes;
         }
 
         private void Update_Controls()
@@ -91,17 +126,9 @@ namespace TimeCanvas
                 }
             }
 
-            TimePicker[] timePickers =
-            [
-                timePicker1, timePicker2, timePicker3, timePicker4, timePicker5, timePicker6, timePicker7, timePicker8, timePicker9,
-                timePicker10, timePicker11, timePicker12, timePicker13, timePicker14, timePicker15, timePicker16, timePicker17, timePicker18
-            ];
+            TimePicker[] timePickers = GetTimePickers();
 
-            TextBox[] txtTasks =
-            [
-                txtTask1, txtTask2, txtTask3, txtTask4, txtTask5, txtTask6, txtTask7, txtTask8, txtTask9,
-                txtTask10, txtTask11, txtTask12, txtTask13, txtTask14, txtTask15, txtTask16, txtTask17, txtTask18
-            ];
+            TextBox[] txtTasks = GetTextBoxes();
 
             int i = 0;
             
@@ -158,13 +185,9 @@ namespace TimeCanvas
         {
             int completedTasks = 0;
             int totalTasks = 0;
-            CheckBox[] checkBoxes =
-            [
-                checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9,
-                checkBox10, checkBox11, checkBox12, checkBox13, checkBox14, checkBox15, checkBox16, checkBox17, checkBox18
-            ];
+            CheckBox[] checkBoxes = GetCheckBoxes();
 
-            foreach(CheckBox checkBox in checkBoxes)
+            foreach (CheckBox checkBox in checkBoxes)
             {
                 if (checkBox.IsChecked == true)
                 {
@@ -172,11 +195,7 @@ namespace TimeCanvas
                 }
             }
 
-            TextBox[] txtTasks =
-            [
-                txtTask1, txtTask2, txtTask3, txtTask4, txtTask5, txtTask6, txtTask7, txtTask8, txtTask9,
-                txtTask10, txtTask11, txtTask12, txtTask13, txtTask14, txtTask15, txtTask16, txtTask17, txtTask18
-            ];
+            TextBox[] txtTasks = GetTextBoxes();
 
             foreach (TextBox textBox in txtTasks)
             {
@@ -186,7 +205,7 @@ namespace TimeCanvas
                 }
             }
 
-            for(int i = 0; i < 18; i++)
+            for(int i = 0; i < txtTasks.Length; i++)
             {
                 ValidCheckBox(checkBoxes[i], txtTasks[i]);
             }
@@ -207,25 +226,13 @@ namespace TimeCanvas
 
         private void ManageControls(string operation)
         {
-            TimePicker[] timePickers =
-            [
-                timePicker1, timePicker2, timePicker3, timePicker4, timePicker5, timePicker6, timePicker7, timePicker8, timePicker9,
-                timePicker10, timePicker11, timePicker12, timePicker13, timePicker14, timePicker15, timePicker16, timePicker17, timePicker18
-            ];
+            TimePicker[] timePickers = GetTimePickers();
 
-            TextBox[] txtTasks =
-            [
-                txtTask1, txtTask2, txtTask3, txtTask4, txtTask5, txtTask6, txtTask7, txtTask8, txtTask9,
-                txtTask10, txtTask11, txtTask12, txtTask13, txtTask14, txtTask15, txtTask16, txtTask17, txtTask18
-            ];
+            TextBox[] txtTasks = GetTextBoxes();
 
-            CheckBox[] checkBoxes =
-            [
-                checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9,
-                checkBox10, checkBox11, checkBox12, checkBox13, checkBox14, checkBox15, checkBox16, checkBox17, checkBox18
-            ];
+            CheckBox[] checkBoxes = GetCheckBoxes();
 
-            for (int id = 1; id <= 18; id++)
+            for (int id = 1; id <= txtTasks.Length; id++)
             {
                 int i = id - 1; // correct index counting
                 Table table = new Table(conn, selectedDay, "");
