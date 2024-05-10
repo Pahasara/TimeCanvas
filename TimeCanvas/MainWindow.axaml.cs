@@ -227,7 +227,7 @@ namespace TimeCanvas
         private void ManageControls(string operation)
         {
             TimePicker[] timePickers = GetTimePickers();
-
+            
             TextBox[] txtTasks = GetTextBoxes();
 
             CheckBox[] checkBoxes = GetCheckBoxes();
@@ -250,7 +250,7 @@ namespace TimeCanvas
                         string selectedTime = timePickers[i].SelectedTime.ToString().Substring(0, 5);
                         int isChecked = (bool)checkBoxes[i].IsChecked ? 1 : 0;
                         string task = txtTasks[i].Text;
-                        string command = $"time = '{selectedTime}', task = '{task}', isChecked = {isChecked}";
+                        string command = $"time = '{selectedTime}', task = \"{task}\", isChecked = {isChecked}";
                         table.Update(command, $" id = {id}");
                         break;
 
