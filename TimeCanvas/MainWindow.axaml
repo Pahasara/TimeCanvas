@@ -9,13 +9,15 @@
         Icon="/Assets/Icons/icon.ico"
         SizeToContent="WidthAndHeight"
         CanResize="False">
+  
+  <!-- CUSTOM STYLES -->
   <Window.Styles>
     <StyleInclude Source="/Assets/Styles/ControlStyles.axaml"/>
   </Window.Styles>
 
   <StackPanel>    
     <StackPanel>
-      <Panel>
+        <!-- Buttons => CHANGE THE SELECTED DAY -->
         <Grid Margin="0 5 0 0" HorizontalAlignment="Center"
             ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
           <Button x:Name="btnSunday" Grid.Column="0" Content="Sunday" Click="DayButton_OnClick"/>
@@ -26,7 +28,6 @@
           <Button x:Name="btnFriday" Grid.Column="5" Content="Friday" Click="DayButton_OnClick" />
           <Button x:Name="btnSaturday" Grid.Column="6" Content="Saturday" Click="DayButton_OnClick"/>
         </Grid>
-      </Panel>
     </StackPanel>
 
     <StackPanel>
@@ -37,13 +38,13 @@
         </Grid>
       </Panel>
     </StackPanel>
+    
+    <!-- ScrollViever => TASKS LIST -->
     <StackPanel>
-          <Panel Name="panel1">
-            <Border>
-              <ScrollViewer Name="scrollViewer1" Width="700" Height="300"
+      <ScrollViewer Name="scrollViewer1" Width="700" Height="300"
                             CornerRadius="15" Background="#050505">
-                <StackPanel>
-                <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+          <StackPanel>
+            <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
                   RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
                   <TimePicker x:Name="timePicker1" Grid.Row="1" Grid.Column="0" />
                   <TextBox x:Name="txtTask1" Grid.Row="1" Grid.Column="1" />
@@ -71,9 +72,9 @@
                   <CheckBox x:Name="checkBox8" Grid.Row="8" Grid.Column="2" />
                   <TimePicker x:Name="timePicker9" Grid.Row="9" Grid.Column="0"/>
                   <TextBox x:Name="txtTask9" Grid.Row="9" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox9" Grid.Row="9" Grid.Column="2" />
-                </Grid>
-                  <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                  <CheckBox x:Name="checkBox9" Grid.Row="9" Grid.Column="2" /> 
+            </Grid>
+            <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
                     RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
                     <TimePicker x:Name="timePicker10" Grid.Row="1" Grid.Column="3"/>
                     <TextBox x:Name="txtTask10" Grid.Row="1" Grid.Column="4" />
@@ -102,8 +103,8 @@
                     <TimePicker x:Name="timePicker18" Grid.Row="9" Grid.Column="3"/>
                     <TextBox x:Name="txtTask18" Grid.Row="9" Grid.Column="4" />
                     <CheckBox x:Name="checkBox18" Grid.Row="9" Grid.Column="5" />
-                  </Grid>
-                  <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+              </Grid>
+              <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
                     RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
                     <TimePicker x:Name="timePicker19" Grid.Row="1" Grid.Column="3"/>
                     <TextBox x:Name="txtTask19" Grid.Row="1" Grid.Column="4" />
@@ -132,14 +133,13 @@
                     <TimePicker x:Name="timePicker27" Grid.Row="9" Grid.Column="3"/>
                     <TextBox x:Name="txtTask27" Grid.Row="9" Grid.Column="4" />
                     <CheckBox x:Name="checkBox27" Grid.Row="9" Grid.Column="5" />
-                  </Grid>
-                </StackPanel>
-              </ScrollViewer>
-            </Border>
-          </Panel>
+            </Grid>
+          </StackPanel>
+        </ScrollViewer>
       <ProgressBar Name="progressBar1" Grid.Column="1" CornerRadius="5" Margin="5"/>
     </StackPanel>
 
+    <!-- Status Line => CONTROL DB -->
     <StackPanel>
       <Panel>
         <Grid HorizontalAlignment="Left"
@@ -156,6 +156,7 @@
       </Panel>
     </StackPanel>
     
+    <!-- Bottom Line => App status -->
     <StackPanel>
       <Panel Margin="" Background="#121212">
           <Label x:Name="lblApp" Classes="Status"  Margin="10 2 0 2" Content="TimeCanvas v1.0.2" HorizontalAlignment="Left"></Label>
