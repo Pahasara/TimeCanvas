@@ -4,7 +4,6 @@ using DvNET.Core;
 using System;
 using System.Data.SQLite;
 using Avalonia.Threading;
-using Avalonia.Media;
 
 namespace TimeCanvas
 {
@@ -14,6 +13,8 @@ namespace TimeCanvas
         DataManager dataManager = new DataManager();
         private string dayOfWeek = DateTime.Now.DayOfWeek.ToString();
         private string selectedDay;
+        private DispatcherTimer _uiTimer, _updateTimer;
+        private bool _isClocksRunning = false;
 
         public MainWindow()
         {
@@ -37,6 +38,7 @@ namespace TimeCanvas
             dataManager.SetConnection(conn);
             selectedDay = dayOfWeek;
             Load();
+            InitializeClocks();
             StartClocks();
         }
 
@@ -46,10 +48,30 @@ namespace TimeCanvas
             dataManager.InitializeTables();
         }
 
+        private void InitializeClocks()
+        {
+            _updateTimer = new DispatcherTimer(TimeSpan.FromMicroseconds(500000), DispatcherPriority.Normal, TimerTick);
+            _uiTimer = new DispatcherTimer(TimeSpan.FromMicroseconds(100000), DispatcherPriority.Normal, ControlsTimerTick);
+        }
+
         private void StartClocks()
         {
-            new DispatcherTimer(TimeSpan.FromMicroseconds(500000), DispatcherPriority.Normal, TimerTick).Start();
-            new DispatcherTimer(TimeSpan.FromMicroseconds(100000), DispatcherPriority.Normal, ControlsTimerTick).Start();
+            if (!_isClocksRunning)
+            {
+                _updateTimer.Start();
+                _uiTimer.Start();
+                _isClocksRunning = true;
+            }
+        }
+
+        private void StopClocks()
+        {
+            if (_isClocksRunning)
+            {
+                _updateTimer.Stop();
+                _uiTimer.Stop();
+                _isClocksRunning = false;
+            }
         }
 
         void TimerTick(object sender, EventArgs e)
@@ -114,46 +136,11 @@ namespace TimeCanvas
         private void Update_Controls()
         {
             Button[] buttons = [btnSunday, btnMonday, btnTuesday, btnWednesday, btnThursday, btnFriday, btnSaturday];
-
-            foreach (Button button in buttons)
-            {
-                button.Background = new SolidColorBrush(Color.FromArgb(255, 28, 28, 28));
-                button.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 36, 36, 36));
-                if (button.Content.ToString() == selectedDay)
-                {
-                    button.Background = new SolidColorBrush(Color.FromArgb(255, 23, 140, 225));
-                    button.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 102, 153));
-                }
-            }
+            UIControl.UpdateButtons(buttons, selectedDay);
 
             TimePicker[] timePickers = GetTimePickers();
-
             TextBox[] txtTasks = GetTextBoxes();
-
-            int i = 0;
-            
-
-            while(i < timePickers.Length)
-            {
-                TimeSpan time = DataManager.GetTime("00:00:00");
-                if (timePickers[i].SelectedTime == time && txtTasks[i].Text == "")
-                {
-                    timePickers[i].Foreground = new SolidColorBrush(Color.FromArgb(255, 150, 150, 150));
-                    txtTasks[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 48, 48, 48));
-                    timePickers[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 48, 48, 48));
-                    timePickers[i].Background = new SolidColorBrush(Color.FromArgb(255, 12, 12, 12));
-                    txtTasks[i].Background = new SolidColorBrush(Color.FromArgb(255, 12, 12, 12));
-                }
-                else
-                {
-                    timePickers[i].Foreground = new SolidColorBrush(Color.FromArgb(255, 249, 249, 249));
-                    txtTasks[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 50, 82, 98));
-                    timePickers[i].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 50, 82, 98));
-                    timePickers[i].Background = new SolidColorBrush(Color.FromArgb(255, 36, 36, 36));
-                    txtTasks[i].Background = new SolidColorBrush(Color.FromArgb(255, 36, 36, 36));
-                }
-                i++;
-            }
+            UIControl.UpdateTaskSlots(timePickers, txtTasks);
         }
 
         private void Load_OnClick(object sender, RoutedEventArgs e)
@@ -163,22 +150,64 @@ namespace TimeCanvas
 
         private void Load()
         {
-            ManageControls("LOAD");
+            TimePicker[] timePickers = GetTimePickers();
+            TextBox[] txtTasks = GetTextBoxes();
+            CheckBox[] checkBoxes = GetCheckBoxes();
+
+            for (int id = 0; id < txtTasks.Length; id++)
+            {
+                int index = id + 1; // correct index counting
+                Table table = new Table(conn, selectedDay, "");
+                string[] column = table.Search(index.ToString());
+                TimeSpan time = DataManager.GetTime(column[1]);
+                timePickers[id].SelectedTime = time;
+                txtTasks[id].Text = column[2];
+                checkBoxes[id].IsChecked = dataManager.GetIsChecked(column[3]);
+            }
         }
 
         private void Update()
         {
-            ManageControls("UPDATE");
+            TimePicker[] timePickers = GetTimePickers();
+            TextBox[] txtTasks = GetTextBoxes();
+            CheckBox[] checkBoxes = GetCheckBoxes();
+
+            for (int id = 0; id < txtTasks.Length; id++)
+            {
+                int index = id + 1;
+                Table table = new Table(conn, selectedDay, "");
+                string time = timePickers[id].SelectedTime.ToString();
+                string task = txtTasks[id].Text;
+                int isChecked = (bool)checkBoxes[id].IsChecked ? 1 : 0;
+                string attributes = $"time = '{time}', task = \"{task}\", isChecked = {isChecked}";
+                string condition = $" id = {index}";
+                table.Update(attributes, condition);
+            }
         }
 
         private void RESET(object sender, RoutedEventArgs e)
         {
-            ManageControls("RESET");
+            CheckBox[] checkBoxes = GetCheckBoxes();
+            for (int id = 0; id < checkBoxes.Length; id++)
+            {
+                checkBoxes[id].IsChecked = false;
+                Update();
+            }
         }
 
         private void CLEAR(object sender, RoutedEventArgs e)
         {
-            ManageControls("CLEAR");
+            TimePicker[] timePickers = GetTimePickers();
+            TextBox[] txtTasks = GetTextBoxes();
+            CheckBox[] checkBoxes = GetCheckBoxes();
+
+            for (int id = 0; id < txtTasks.Length; id++)
+            {
+                timePickers[id].SelectedTime = DataManager.GetTime("00:00:00");
+                txtTasks[id].Text = "";
+                checkBoxes[id].IsChecked = false;
+                Update();
+            }
         }
 
         private void ShowProgress()
@@ -224,49 +253,14 @@ namespace TimeCanvas
                 checkBox.IsEnabled = false;
         }
 
-        private void ManageControls(string operation)
+        private void WindowActivated(object sender, EventArgs e)
         {
-            TimePicker[] timePickers = GetTimePickers();
-            
-            TextBox[] txtTasks = GetTextBoxes();
+            StartClocks();
+        }
 
-            CheckBox[] checkBoxes = GetCheckBoxes();
-
-            for (int id = 1; id <= txtTasks.Length; id++)
-            {
-                int i = id - 1; // correct index counting
-                Table table = new Table(conn, selectedDay, "");
-                switch (operation)
-                {
-                    case "LOAD":
-                        string[] column = table.Search(id.ToString());
-                        TimeSpan loadedTime = DataManager.GetTime(column[1]);
-                        timePickers[i].SelectedTime = loadedTime;
-                        txtTasks[i].Text = column[2];
-                        checkBoxes[i].IsChecked = dataManager.GetIsChecked(column[3]);
-                        break;
-
-                    case "UPDATE":
-                        string selectedTime = timePickers[i].SelectedTime.ToString().Substring(0, 5);
-                        int isChecked = (bool)checkBoxes[i].IsChecked ? 1 : 0;
-                        string task = txtTasks[i].Text;
-                        string command = $"time = '{selectedTime}', task = \"{task}\", isChecked = {isChecked}";
-                        table.Update(command, $" id = {id}");
-                        break;
-
-                    case "RESET":
-                        checkBoxes[i].IsChecked = false;
-                        Update();
-                        break;
-
-                    case "CLEAR":
-                        timePickers[i].SelectedTime = DataManager.GetTime("00:00:00");
-                        txtTasks[i].Text = "";
-                        checkBoxes[i].IsChecked = false;
-                        Update();
-                        break;
-                }
-            }
+        private void WindowDeactivated(object sender, EventArgs e)
+        {
+            StopClocks();
         }
     }
 }
