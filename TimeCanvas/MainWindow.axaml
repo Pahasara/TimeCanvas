@@ -4,30 +4,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="350"
         x:Class="TimeCanvas.MainWindow"
-        Title="DvNET TimeCanvas v1.0"
+        Title="DvNET TimeCanvas"
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/Icons/icon.ico"
         SizeToContent="WidthAndHeight"
-        CanResize="False">
-  
+        CanResize="False"
+        Activated="WindowActivated"
+        Deactivated="WindowDeactivated">
+
   <!-- CUSTOM STYLES -->
   <Window.Styles>
     <StyleInclude Source="/Assets/Styles/ControlStyles.axaml"/>
   </Window.Styles>
 
-  <StackPanel>    
+  <StackPanel>
     <StackPanel>
-        <!-- Buttons => CHANGE THE SELECTED DAY -->
-        <Grid Margin="0 5 0 0" HorizontalAlignment="Center"
-            ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
-          <Button x:Name="btnSunday" Grid.Column="0" Content="Sunday" Click="DayButton_OnClick"/>
-          <Button x:Name="btnMonday" Grid.Column="1" Content="Monday" Click="DayButton_OnClick"/>
-          <Button x:Name="btnTuesday" Grid.Column="2" Content="Tuesday" Click="DayButton_OnClick"/>
-          <Button x:Name="btnWednesday" Grid.Column="3" Content="Wednesday" Click="DayButton_OnClick"/>
-          <Button x:Name="btnThursday" Grid.Column="4" Content="Thursday" Click="DayButton_OnClick"/>
-          <Button x:Name="btnFriday" Grid.Column="5" Content="Friday" Click="DayButton_OnClick" />
-          <Button x:Name="btnSaturday" Grid.Column="6" Content="Saturday" Click="DayButton_OnClick"/>
-        </Grid>
+      <!-- Buttons => CHANGE THE SELECTED DAY -->
+      <Grid Margin="0 5 0 0" HorizontalAlignment="Center"
+          ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+        <Button x:Name="btnSunday" Grid.Column="0" Content="Sunday" Click="DayButton_OnClick"/>
+        <Button x:Name="btnMonday" Grid.Column="1" Content="Monday" Click="DayButton_OnClick"/>
+        <Button x:Name="btnTuesday" Grid.Column="2" Content="Tuesday" Click="DayButton_OnClick"/>
+        <Button x:Name="btnWednesday" Grid.Column="3" Content="Wednesday" Click="DayButton_OnClick"/>
+        <Button x:Name="btnThursday" Grid.Column="4" Content="Thursday" Click="DayButton_OnClick"/>
+        <Button x:Name="btnFriday" Grid.Column="5" Content="Friday" Click="DayButton_OnClick" />
+        <Button x:Name="btnSaturday" Grid.Column="6" Content="Saturday" Click="DayButton_OnClick"/>
+      </Grid>
     </StackPanel>
 
     <StackPanel>
@@ -38,104 +40,104 @@
         </Grid>
       </Panel>
     </StackPanel>
-    
+
     <!-- ScrollViever => TASKS LIST -->
     <StackPanel>
       <ScrollViewer Name="scrollViewer1" Width="700" Height="300"
                             CornerRadius="15" Background="#050505">
-          <StackPanel>
-            <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+        <StackPanel>
+          <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+            <TimePicker x:Name="timePicker1" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtTask1" Grid.Row="1" Grid.Column="1" />
+            <CheckBox x:Name="checkBox1" Grid.Row="1" Grid.Column="2"/>
+            <TimePicker x:Name="timePicker2" Grid.Row="2" Grid.Column="0"/>
+            <TextBox x:Name="txtTask2" Grid.Row="2" Grid.Column="1" />
+            <CheckBox x:Name="checkBox2" Grid.Row="2" Grid.Column="2" />
+            <TimePicker x:Name="timePicker3" Grid.Row="3" Grid.Column="0" />
+            <TextBox x:Name="txtTask3" Grid.Row="3" Grid.Column="1" />
+            <CheckBox x:Name="checkBox3" Grid.Row="3" Grid.Column="2" />
+            <TimePicker x:Name="timePicker4" Grid.Row="4" Grid.Column="0"/>
+            <TextBox x:Name="txtTask4" Grid.Row="4" Grid.Column="1" />
+            <CheckBox x:Name="checkBox4" Grid.Row="4" Grid.Column="2" />
+            <TimePicker x:Name="timePicker5" Grid.Row="5" Grid.Column="0"/>
+            <TextBox x:Name="txtTask5" Grid.Row="5" Grid.Column="1" />
+            <CheckBox x:Name="checkBox5" Grid.Row="5" Grid.Column="2" />
+            <TimePicker x:Name="timePicker6" Grid.Row="6" Grid.Column="0"/>
+            <TextBox x:Name="txtTask6" Grid.Row="6" Grid.Column="1" />
+            <CheckBox x:Name="checkBox6" Grid.Row="6" Grid.Column="2" />
+            <TimePicker x:Name="timePicker7" Grid.Row="7" Grid.Column="0"/>
+            <TextBox x:Name="txtTask7" Grid.Row="7" Grid.Column="1" />
+            <CheckBox x:Name="checkBox7" Grid.Row="7" Grid.Column="2" />
+            <TimePicker x:Name="timePicker8" Grid.Row="8" Grid.Column="0"/>
+            <TextBox x:Name="txtTask8" Grid.Row="8" Grid.Column="1" />
+            <CheckBox x:Name="checkBox8" Grid.Row="8" Grid.Column="2" />
+            <TimePicker x:Name="timePicker9" Grid.Row="9" Grid.Column="0"/>
+            <TextBox x:Name="txtTask9" Grid.Row="9" Grid.Column="1" />
+            <CheckBox x:Name="checkBox9" Grid.Row="9" Grid.Column="2" />
+          </Grid>
+          <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
                   RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
-                  <TimePicker x:Name="timePicker1" Grid.Row="1" Grid.Column="0" />
-                  <TextBox x:Name="txtTask1" Grid.Row="1" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox1" Grid.Row="1" Grid.Column="2"/>
-                  <TimePicker x:Name="timePicker2" Grid.Row="2" Grid.Column="0"/>
-                  <TextBox x:Name="txtTask2" Grid.Row="2" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox2" Grid.Row="2" Grid.Column="2" />
-                  <TimePicker x:Name="timePicker3" Grid.Row="3" Grid.Column="0" />
-                  <TextBox x:Name="txtTask3" Grid.Row="3" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox3" Grid.Row="3" Grid.Column="2" />
-                  <TimePicker x:Name="timePicker4" Grid.Row="4" Grid.Column="0"/>
-                  <TextBox x:Name="txtTask4" Grid.Row="4" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox4" Grid.Row="4" Grid.Column="2" />
-                  <TimePicker x:Name="timePicker5" Grid.Row="5" Grid.Column="0"/>
-                  <TextBox x:Name="txtTask5" Grid.Row="5" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox5" Grid.Row="5" Grid.Column="2" />
-                  <TimePicker x:Name="timePicker6" Grid.Row="6" Grid.Column="0"/>
-                  <TextBox x:Name="txtTask6" Grid.Row="6" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox6" Grid.Row="6" Grid.Column="2" />
-                  <TimePicker x:Name="timePicker7" Grid.Row="7" Grid.Column="0"/>
-                  <TextBox x:Name="txtTask7" Grid.Row="7" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox7" Grid.Row="7" Grid.Column="2" />
-                  <TimePicker x:Name="timePicker8" Grid.Row="8" Grid.Column="0"/>
-                  <TextBox x:Name="txtTask8" Grid.Row="8" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox8" Grid.Row="8" Grid.Column="2" />
-                  <TimePicker x:Name="timePicker9" Grid.Row="9" Grid.Column="0"/>
-                  <TextBox x:Name="txtTask9" Grid.Row="9" Grid.Column="1" />
-                  <CheckBox x:Name="checkBox9" Grid.Row="9" Grid.Column="2" /> 
-            </Grid>
-            <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
-                    RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
-                    <TimePicker x:Name="timePicker10" Grid.Row="1" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask10" Grid.Row="1" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox10" Grid.Row="1" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker11" Grid.Row="2" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask11" Grid.Row="2" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox11" Grid.Row="2" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker12" Grid.Row="3" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask12" Grid.Row="3" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox12" Grid.Row="3" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker13" Grid.Row="4" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask13" Grid.Row="4" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox13" Grid.Row="4" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker14" Grid.Row="5" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask14" Grid.Row="5" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox14" Grid.Row="5" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker15" Grid.Row="6" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask15" Grid.Row="6" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox15" Grid.Row="6" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker16" Grid.Row="7" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask16" Grid.Row="7" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox16" Grid.Row="7" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker17" Grid.Row="8" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask17" Grid.Row="8" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox17" Grid.Row="8" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker18" Grid.Row="9" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask18" Grid.Row="9" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox18" Grid.Row="9" Grid.Column="5" />
-              </Grid>
-              <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
-                    RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
-                    <TimePicker x:Name="timePicker19" Grid.Row="1" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask19" Grid.Row="1" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox19" Grid.Row="1" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker20" Grid.Row="2" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask20" Grid.Row="2" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox20" Grid.Row="2" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker21" Grid.Row="3" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask21" Grid.Row="3" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox21" Grid.Row="3" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker22" Grid.Row="4" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask22" Grid.Row="4" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox22" Grid.Row="4" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker23" Grid.Row="5" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask23" Grid.Row="5" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox23" Grid.Row="5" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker24" Grid.Row="6" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask24" Grid.Row="6" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox24" Grid.Row="6" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker25" Grid.Row="7" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask25" Grid.Row="7" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox25" Grid.Row="7" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker26" Grid.Row="8" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask26" Grid.Row="8" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox26" Grid.Row="8" Grid.Column="5" />
-                    <TimePicker x:Name="timePicker27" Grid.Row="9" Grid.Column="3"/>
-                    <TextBox x:Name="txtTask27" Grid.Row="9" Grid.Column="4" />
-                    <CheckBox x:Name="checkBox27" Grid.Row="9" Grid.Column="5" />
-            </Grid>
-          </StackPanel>
-        </ScrollViewer>
+            <TimePicker x:Name="timePicker10" Grid.Row="1" Grid.Column="3"/>
+            <TextBox x:Name="txtTask10" Grid.Row="1" Grid.Column="4" />
+            <CheckBox x:Name="checkBox10" Grid.Row="1" Grid.Column="5" />
+            <TimePicker x:Name="timePicker11" Grid.Row="2" Grid.Column="3"/>
+            <TextBox x:Name="txtTask11" Grid.Row="2" Grid.Column="4" />
+            <CheckBox x:Name="checkBox11" Grid.Row="2" Grid.Column="5" />
+            <TimePicker x:Name="timePicker12" Grid.Row="3" Grid.Column="3"/>
+            <TextBox x:Name="txtTask12" Grid.Row="3" Grid.Column="4" />
+            <CheckBox x:Name="checkBox12" Grid.Row="3" Grid.Column="5" />
+            <TimePicker x:Name="timePicker13" Grid.Row="4" Grid.Column="3"/>
+            <TextBox x:Name="txtTask13" Grid.Row="4" Grid.Column="4" />
+            <CheckBox x:Name="checkBox13" Grid.Row="4" Grid.Column="5" />
+            <TimePicker x:Name="timePicker14" Grid.Row="5" Grid.Column="3"/>
+            <TextBox x:Name="txtTask14" Grid.Row="5" Grid.Column="4" />
+            <CheckBox x:Name="checkBox14" Grid.Row="5" Grid.Column="5" />
+            <TimePicker x:Name="timePicker15" Grid.Row="6" Grid.Column="3"/>
+            <TextBox x:Name="txtTask15" Grid.Row="6" Grid.Column="4" />
+            <CheckBox x:Name="checkBox15" Grid.Row="6" Grid.Column="5" />
+            <TimePicker x:Name="timePicker16" Grid.Row="7" Grid.Column="3"/>
+            <TextBox x:Name="txtTask16" Grid.Row="7" Grid.Column="4" />
+            <CheckBox x:Name="checkBox16" Grid.Row="7" Grid.Column="5" />
+            <TimePicker x:Name="timePicker17" Grid.Row="8" Grid.Column="3"/>
+            <TextBox x:Name="txtTask17" Grid.Row="8" Grid.Column="4" />
+            <CheckBox x:Name="checkBox17" Grid.Row="8" Grid.Column="5" />
+            <TimePicker x:Name="timePicker18" Grid.Row="9" Grid.Column="3"/>
+            <TextBox x:Name="txtTask18" Grid.Row="9" Grid.Column="4" />
+            <CheckBox x:Name="checkBox18" Grid.Row="9" Grid.Column="5" />
+          </Grid>
+          <Grid ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+            <TimePicker x:Name="timePicker19" Grid.Row="1" Grid.Column="3"/>
+            <TextBox x:Name="txtTask19" Grid.Row="1" Grid.Column="4" />
+            <CheckBox x:Name="checkBox19" Grid.Row="1" Grid.Column="5" />
+            <TimePicker x:Name="timePicker20" Grid.Row="2" Grid.Column="3"/>
+            <TextBox x:Name="txtTask20" Grid.Row="2" Grid.Column="4" />
+            <CheckBox x:Name="checkBox20" Grid.Row="2" Grid.Column="5" />
+            <TimePicker x:Name="timePicker21" Grid.Row="3" Grid.Column="3"/>
+            <TextBox x:Name="txtTask21" Grid.Row="3" Grid.Column="4" />
+            <CheckBox x:Name="checkBox21" Grid.Row="3" Grid.Column="5" />
+            <TimePicker x:Name="timePicker22" Grid.Row="4" Grid.Column="3"/>
+            <TextBox x:Name="txtTask22" Grid.Row="4" Grid.Column="4" />
+            <CheckBox x:Name="checkBox22" Grid.Row="4" Grid.Column="5" />
+            <TimePicker x:Name="timePicker23" Grid.Row="5" Grid.Column="3"/>
+            <TextBox x:Name="txtTask23" Grid.Row="5" Grid.Column="4" />
+            <CheckBox x:Name="checkBox23" Grid.Row="5" Grid.Column="5" />
+            <TimePicker x:Name="timePicker24" Grid.Row="6" Grid.Column="3"/>
+            <TextBox x:Name="txtTask24" Grid.Row="6" Grid.Column="4" />
+            <CheckBox x:Name="checkBox24" Grid.Row="6" Grid.Column="5" />
+            <TimePicker x:Name="timePicker25" Grid.Row="7" Grid.Column="3"/>
+            <TextBox x:Name="txtTask25" Grid.Row="7" Grid.Column="4" />
+            <CheckBox x:Name="checkBox25" Grid.Row="7" Grid.Column="5" />
+            <TimePicker x:Name="timePicker26" Grid.Row="8" Grid.Column="3"/>
+            <TextBox x:Name="txtTask26" Grid.Row="8" Grid.Column="4" />
+            <CheckBox x:Name="checkBox26" Grid.Row="8" Grid.Column="5" />
+            <TimePicker x:Name="timePicker27" Grid.Row="9" Grid.Column="3"/>
+            <TextBox x:Name="txtTask27" Grid.Row="9" Grid.Column="4" />
+            <CheckBox x:Name="checkBox27" Grid.Row="9" Grid.Column="5" />
+          </Grid>
+        </StackPanel>
+      </ScrollViewer>
       <ProgressBar Name="progressBar1" Grid.Column="1" CornerRadius="5" Margin="5"/>
     </StackPanel>
 
@@ -155,15 +157,15 @@
         </Grid>
       </Panel>
     </StackPanel>
-    
+
     <!-- Bottom Line => App status -->
     <StackPanel>
       <Panel Margin="" Background="#121212">
-          <Label x:Name="lblApp" Classes="Status"  Margin="10 2 0 2" Content="TimeCanvas v1.0.2" HorizontalAlignment="Left"></Label>
-          <Label x:Name="lblAuthor" Classes="Status"  Margin="0 2 0 2" Content="github.com/pahasara/TimeCanvas" HorizontalAlignment="Center"></Label>
-          <Label x:Name="lblCompany" Classes="Status"  Margin="0 2 10 2" Content="DvNET SYSTEMS" HorizontalAlignment="Right"></Label>
+        <Label x:Name="lblApp" Classes="Status"  Margin="10 2 0 2" Content="TimeCanvas v1.2.0" HorizontalAlignment="Left"></Label>
+        <Label x:Name="lblAuthor" Classes="Status"  Margin="0 2 0 2" Content="github.com/pahasara/TimeCanvas" HorizontalAlignment="Center"></Label>
+        <Label x:Name="lblCompany" Classes="Status"  Margin="0 2 10 2" Content="DvNET SYSTEMS" HorizontalAlignment="Right"></Label>
       </Panel>
     </StackPanel>
-    
+
   </StackPanel>
 </Window>
