@@ -179,7 +179,7 @@ namespace TimeCanvas
                 string time = timePickers[id].SelectedTime.ToString();
                 string task = txtTasks[id].Text;
                 int isChecked = (bool)checkBoxes[id].IsChecked ? 1 : 0;
-                string attributes = $"time = '{time}', task = \"{task}\", isChecked = {isChecked}";
+                string attributes = $"time = \'{time}\', task = \'{task}\', isChecked = {isChecked}";
                 string condition = $" id = {index}";
                 table.Update(attributes, condition);
             }
