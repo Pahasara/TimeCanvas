@@ -9,7 +9,7 @@ namespace TimeCanvas
 {
     public partial class MainWindow : Window
     {
-        SQLiteConnection conn = new SQLiteConnection("Data Source = TimeCanvas.db; version = 3; New = True; Compress = True;");
+        SQLiteConnection conn = new SQLiteConnection("Data Source = .TimeCanvas.db; version = 3; New = True; Compress = True;");
         DataManager dataManager = new DataManager();
         private string dayOfWeek = DateTime.Now.DayOfWeek.ToString();
         private string selectedDay;

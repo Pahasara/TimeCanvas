@@ -6,7 +6,7 @@ namespace TimeCanvas
 {
     internal class DataManager
     {
-        private SQLiteConnection conn = new SQLiteConnection("Data Source = TimeCanvas.db; version = 3; New = True; Compress = True;");
+        private SQLiteConnection conn = new SQLiteConnection("Data Source = .TimeCanvas.db; version = 3; New = True; Compress = True;");
 
         private short numberOfRows = 27 + 1; // number of rows in the UI + 1
 
