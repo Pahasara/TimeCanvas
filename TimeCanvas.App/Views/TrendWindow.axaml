@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TimeCanvas.ViewModels"
+        xmlns:conv="using:TimeCanvas.Converters"
+        x:Class="TimeCanvas.Views.TrendWindow"
+        x:DataType="vm:TrendViewModel"
+        Title="Last 14 Days" Width="420" Height="320"
+        Background="{DynamicResource BgWindow}"
+        WindowStartupLocation="CenterOwner">
+  <StackPanel Margin="20" Spacing="12">
+
+    <Grid ColumnDefinitions="*,*">
+      <StackPanel Grid.Column="0">
+        <TextBlock Text="Avg. completion" Foreground="{DynamicResource TextMuted}" FontSize="11" />
+        <TextBlock Text="{Binding AverageCompletion, StringFormat={}{0:0}%}"
+                   FontFamily="{DynamicResource RussoOne}" FontSize="22" Foreground="{DynamicResource Accent}" />
+      </StackPanel>
+      <StackPanel Grid.Column="1">
+        <TextBlock Text="Avg. efficiency" Foreground="{DynamicResource TextMuted}" FontSize="11" />
+        <TextBlock Text="{Binding AverageEfficiency, StringFormat={}{0:0}%}"
+                   FontFamily="{DynamicResource RussoOne}" FontSize="22" Foreground="{DynamicResource TextPrimary}" />
+      </StackPanel>
+    </Grid>
+
+    <ItemsControl ItemsSource="{Binding Days}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="110" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Width="24" VerticalAlignment="Bottom" Spacing="2">
+            <Border Height="{Binding CompletionPercent, Converter={x:Static conv:PercentToHeightConverter.Instance}}"
+                    Background="{DynamicResource Accent}" CornerRadius="3" VerticalAlignment="Bottom" />
+            <TextBlock Text="{Binding Date, StringFormat={}{0:dd}}" FontSize="9"
+                       Foreground="{DynamicResource TextMuted}" HorizontalAlignment="Center" />
+          </StackPanel>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+  </StackPanel>
+</Window>

@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TimeCanvas.ViewModels"
+        x:Class="TimeCanvas.Views.SettingsWindow"
+        x:DataType="vm:SettingsViewModel"
+        Title="Settings" Width="340" Height="260"
+        Background="{DynamicResource BgWindow}"
+        WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="20" Spacing="14">
+        <StackPanel Spacing="4">
+            <TextBlock Text="Default day start time" Foreground="{DynamicResource TextMuted}" FontSize="12" />
+            <TimePicker SelectedTime="{Binding DefaultDayStartTime}" ClockIdentifier="24HourClock" />
+        </StackPanel>
+        <StackPanel Spacing="4">
+            <TextBlock Text="Default new-task duration (min)" Foreground="{DynamicResource TextMuted}" FontSize="12" />
+            <NumericUpDown Value="{Binding DefaultTaskDurationMinutes}" Minimum="5" Maximum="480" Increment="5" />
+        </StackPanel>
+        <CheckBox Content="Auto-carry incomplete tasks to tomorrow" IsChecked="{Binding AutoCarryIncompleteTasks}" />
+        <Button Classes="primary" Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Right" />
+    </StackPanel>
+</Window>

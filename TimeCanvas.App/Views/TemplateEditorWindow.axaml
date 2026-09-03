@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TimeCanvas.ViewModels"
+        x:Class="TimeCanvas.Views.TemplateEditorWindow"
+        x:DataType="vm:TemplateEditorViewModel"
+        Title="Edit Weekday Templates" Width="640" Height="560" MinWidth="600" MinHeight="420"
+        Background="{DynamicResource BgWindow}"
+        WindowStartupLocation="CenterOwner">
+
+  <Grid RowDefinitions="Auto,*,Auto" Margin="16">
+
+    <ItemsControl Grid.Row="0" ItemsSource="{Binding Weekdays}" Margin="0,0,0,12">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:DayButtonViewModel">
+          <Button Classes="dayButton" Classes.selected="{Binding IsSelected}"
+                  Command="{Binding $parent[ItemsControl].((vm:TemplateEditorViewModel)DataContext).SelectWeekdayCommand}"
+                  CommandParameter="{Binding Date}">
+            <TextBlock Text="{Binding DayLabel}" FontSize="11" Foreground="{DynamicResource TextPrimary}" />
+          </Button>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <ScrollViewer Grid.Row="1">
+      <ItemsControl ItemsSource="{Binding Rows}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:TemplateTaskRowViewModel">
+            <Border Classes="taskRow">
+              <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="8" VerticalAlignment="Center">
+                <TimePicker Grid.Column="0"
+                            SelectedTime="{Binding PlannedStart, Converter={StaticResource NullableTimeSpanConverter}}"
+                            MinuteIncrement="5" ClockIdentifier="24HourClock" />
+                <NumericUpDown Grid.Column="1" Width="150"
+                                Value="{Binding PlannedDurationMinutes, Converter={StaticResource MinutesToDecimalConverter}}"
+                                Minimum="5" Maximum="600" Increment="5" FormatString="0 'min'" />
+                <TextBox Grid.Column="2" Classes="taskDescription" PlaceholderText="Task"
+                          Text="{Binding Description}" MinWidth="120" />
+                <Button Grid.Column="3" Classes="iconButton" Content="✕"
+                        Command="{Binding $parent[ItemsControl].((vm:TemplateEditorViewModel)DataContext).RemoveRowCommand}"
+                        CommandParameter="{Binding}" />
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <Button Grid.Row="2" Classes="primary" Content="+ Add Row" Command="{Binding AddRowCommand}"
+            HorizontalAlignment="Left" Margin="0,12,0,0" />
+
+  </Grid>
+</Window>

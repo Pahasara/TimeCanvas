@@ -1,4 +1,25 @@
-DvNET.Core/bin/
-DvNET.Core/obj/
-TimeCanvas/bin/
-TimeCanvas/obj/
+# Build & Artifacts
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+# JetBrains Rider
+.idea/
+*.sln.imb
+*.csproj.user
+
+# OS Specific (Arch / Windows)
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local Data & Security
+*.db
+*.db-shm
+*.db-wal
+*.enc
+.env
+*.usersecrets

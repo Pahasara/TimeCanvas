@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TimeCanvas.App\TimeCanvas.App.csproj" />
+  <Project Path="TimeCanvas.Core.Tests\TimeCanvas.Core.Tests.csproj" />
+  <Project Path="TimeCanvas.Core/TimeCanvas.Core.csproj" />
+</Solution>

@@ -1,0 +1,41 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="using:TimeCanvas.Converters"
+             x:Class="TimeCanvas.App"
+             RequestedThemeVariant="Dark">
+
+  <Application.Resources>
+    <!-- Design tokens — the only place raw colors should live -->
+    <SolidColorBrush x:Key="BgWindow">#0C0C0C</SolidColorBrush>
+    <SolidColorBrush x:Key="BgPanel">#121212</SolidColorBrush>
+    <SolidColorBrush x:Key="BgControl">#242424</SolidColorBrush>
+    <SolidColorBrush x:Key="BgInput">#121212</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderSubtle">#323232</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderFocus">#646868</SolidColorBrush>
+    <SolidColorBrush x:Key="Accent">#178CE1</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentBorder">#006699</SolidColorBrush>
+    <SolidColorBrush x:Key="Danger">#993232</SolidColorBrush>
+    <SolidColorBrush x:Key="TextPrimary">#F9F9F9</SolidColorBrush>
+    <SolidColorBrush x:Key="TextMuted">#999898</SolidColorBrush>
+    
+    <Color x:Key="SystemAccentColor">#178CE1</Color>
+    <Color x:Key="SystemAccentColorDark1">#0F6FB8</Color>
+    <Color x:Key="SystemAccentColorDark2">#0A5A94</Color>
+    <Color x:Key="SystemAccentColorDark3">#064570</Color>
+    <Color x:Key="SystemAccentColorLight1">#3AA0E8</Color>
+    <Color x:Key="SystemAccentColorLight2">#5CB4EC</Color>
+    <Color x:Key="SystemAccentColorLight3">#7EC8F0</Color>
+
+    <FontFamily x:Key="RussoOne">avares://TimeCanvas.App/Assets/Fonts#Russo One</FontFamily>
+    <FontFamily x:Key="Orbitron">avares://TimeCanvas.App/Assets/Fonts#Orbitron</FontFamily>
+    
+    <conv:NullableTimeSpanConverter x:Key="NullableTimeSpanConverter" />
+    <conv:MinutesToDecimalConverter x:Key="MinutesToDecimalConverter" />
+  </Application.Resources>
+
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://TimeCanvas.App/Styles/ControlStyles.axaml" />
+  </Application.Styles>
+
+</Application>

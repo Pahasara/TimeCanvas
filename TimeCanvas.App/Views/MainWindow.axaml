@@ -1,0 +1,134 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TimeCanvas.ViewModels"
+        x:Class="TimeCanvas.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="DvNET TimeCanvas"
+        Background="{DynamicResource BgWindow}"
+        Width="960" Height="640" MinWidth="960" MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/Icons/icon.ico">
+
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="16">
+
+    <!-- ===================== Header ===================== -->
+    <StackPanel Grid.Row="0" Spacing="12" Margin="0,0,0,12">
+
+      <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto,Auto,Auto" Margin="0,0,0,12">
+        <TextBlock Grid.Column="0" Text="TIMECANVAS"
+              FontFamily="{DynamicResource Orbitron}" FontSize="20"
+              Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center" />
+        <Button Grid.Column="1" Classes="iconButton" Content="" ToolTip.Tip="Edit templates"
+              Command="{Binding OpenTemplatesCommand}" />
+        <Button Grid.Column="2" Classes="iconButton" Content="" ToolTip.Tip="History"
+              Command="{Binding OpenHistoryCommand}" />
+        <Button Grid.Column="3" Classes="iconButton" Content="" ToolTip.Tip="Settings"
+              Command="{Binding OpenSettingsCommand}" />
+        <Button Grid.Column="4" Classes="secondary" Content="Today"
+              Command="{Binding GoToTodayCommand}" Margin="8,0,0,0" />
+      </Grid>
+
+      <!-- Day strip -->
+      <ItemsControl ItemsSource="{Binding WeekDates}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:DayButtonViewModel">
+            <Button Classes="dayButton" Classes.selected="{Binding IsSelected}"
+                    Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).SelectDateCommand}"
+                    CommandParameter="{Binding Date}">
+              <StackPanel Spacing="2">
+                <TextBlock Text="{Binding DayLabel}" FontSize="10"
+                           Foreground="{DynamicResource TextMuted}" HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding DayNumber}" FontFamily="{DynamicResource RussoOne}" FontSize="16"
+                           Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center" />
+              </StackPanel>
+            </Button>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+    </StackPanel>
+
+    <!-- ===================== Stats bar ===================== -->
+    <Border Grid.Row="1" Background="{DynamicResource BgPanel}" CornerRadius="12"
+            Padding="14,12" Margin="0,0,0,12">
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel Grid.Column="0" Spacing="6">
+          <ProgressBar Classes="completion" Value="{Binding CompletionPercent}" Maximum="100" />
+          <Grid ColumnDefinitions="*,*">
+            <TextBlock Grid.Column="0" Foreground="{DynamicResource TextMuted}" FontSize="11">
+              <Run Text="{Binding CompletedCount}" /><Run Text=" / " /><Run Text="{Binding TotalCount}" /><Run Text=" tasks" />
+            </TextBlock>
+            <TextBlock Grid.Column="1" Foreground="{DynamicResource TextMuted}" FontSize="11"
+                   HorizontalAlignment="Right">
+              <Run Text="Time efficiency: " />
+              <Run Text="{Binding EfficiencyPercent, StringFormat={}{0:0}%}" />
+            </TextBlock>
+          </Grid>
+        </StackPanel>
+        <TextBlock Grid.Column="1" Text="{Binding CompletionPercent, StringFormat={}{0:0}%}"
+                   FontFamily="{DynamicResource RussoOne}" FontSize="26"
+                   Foreground="{DynamicResource Accent}" VerticalAlignment="Center" Margin="12,0,0,0" />
+      </Grid>
+    </Border>
+    
+    <!-- ===================== Task list ===================== -->
+    <ScrollViewer Grid.Row="2">
+      <ItemsControl ItemsSource="{Binding Tasks}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:TaskItemViewModel">
+            <Border Classes="taskRow" Classes.completed="{Binding IsCompleted}">
+              <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto" VerticalAlignment="Center" ColumnSpacing="8">
+
+                <TimePicker Grid.Column="0"
+                            SelectedTime="{Binding PlannedStart, Converter={StaticResource NullableTimeSpanConverter}}"
+                            MinuteIncrement="5" ClockIdentifier="24HourClock" />
+
+                <NumericUpDown Grid.Column="1" Width="150"
+                                Value="{Binding PlannedDurationMinutes, Converter={StaticResource MinutesToDecimalConverter}}"
+                                Minimum="5" Maximum="600" Increment="5"
+                                FormatString="0 'min'" />
+
+                <TextBox Grid.Column="2" Classes="taskDescription"
+                          PlaceholderText="What are you working on?"
+                          Text="{Binding Description}"
+                          KeyDown="TaskDescription_KeyDown" />
+
+                <!-- Single control for completion — unchecking IS the undo, no separate button needed -->
+                <CheckBox Grid.Column="3" Classes="taskDone"
+                          IsChecked="{Binding IsCompleted}"
+                          ToolTip.Tip="Mark done" />
+                
+                <ComboBox Grid.Column="4" Width="90"
+                          IsVisible="{Binding IsCompleted}"
+                          ItemsSource="{x:Static vm:TaskItemViewModel.EfficiencyLabels}"
+                          SelectedItem="{Binding SelectedEfficiencyLabel}"
+                          ToolTip.Tip="How much of the planned time did you use?" />
+
+                <Button Grid.Column="5" Classes="iconButton" Content="✕" ToolTip.Tip="Delete task"
+                        Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).DeleteTaskCommand}"
+                        CommandParameter="{Binding}" />
+
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <!-- ===================== Footer actions ===================== -->
+    <Grid Grid.Row="3" ColumnDefinitions="*,Auto,Auto" Margin="0,12,0,0">
+      <Button Grid.Column="0" Classes="primary" Content="+ ADD TASK"
+              Command="{Binding AddTaskCommand}" HorizontalAlignment="Left" />
+      <Button Grid.Column="1" Classes="secondary" Content="COPY YESTERDAY"
+              Command="{Binding CopyFromYesterdayCommand}" Margin="0,0,8,0" />
+      <Button Grid.Column="2" Classes="secondary" Content="FROM TEMPLATE"
+              Command="{Binding NewFromTemplateCommand}" />
+    </Grid>
+
+  </Grid>
+</Window>
