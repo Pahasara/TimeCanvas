@@ -1,33 +1,75 @@
 # TimeCanvas
 
-TimeCanvas is a powerful time management and task organization software designed to simplify your daily life. It is written in C# and is powered by avalonia & sqlite. Specially made for someone who wants to stay organized, TimeCanvas provides the tools you need to manage your time efficiently.! (ganbare, ganbare!)
+TimeCanvas is a powerful, lightweight time management and task organization software designed to simplify your daily life. Built with modern C#, Avalonia UI, and SQLite, it provides a clean, highly structured environment to manage your time efficiently and track your actual productivity. (Ganbare, ganbare!)
 
-## Downloads
+<div align="center">
+  <img width="848" alt="TimeCanvas Screenshot" src="https://github.com/user-attachments/assets/9866baf3-6823-4900-9cc7-d307f3a2fa60">
+</div>
 
-### For Windows (x64)
-[![ZIP](https://img.shields.io/badge/win%20x64.7z-[30.9MB]-darkgreen)](https://github.com/Pahasara/TimeCanvas/releases/download/1.2.0/win-x64.7z)
-[![SETUP](https://img.shields.io/badge/setup.exe-[33.7MB]-blue)](https://github.com/Pahasara/TimeCanvas/releases/download/1.2.0/setup.exe)
+---
 
-### For Linux (x64)
-[![TAR](https://img.shields.io/badge/linux%20x64.tar.xz-[39.2MB]-darkgreen)](https://github.com/Pahasara/TimeCanvas/releases/download/1.2.0/linux-x64.tar.xz)
+## 📥 Downloads
 
-<img width="848" alt="App screenshot" src="https://github.com/Pahasara/TimeCanvas/assets/46932317/b0617432-e778-419c-93c5-cdd48cb0bf15">
+Available as standalone, highly-optimized executables. No installation required.
 
-## Troubleshooting
+### Windows (x64)
+[![ZIP](https://img.shields.io/badge/Windows_x64.zip-[41MB]-blue)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.0/TimeCanvas_Windows_x64.zip)
 
-### Wayland Scaling Issue
-Monitor DPI is calculated from values provided by XRANDR extension. These might be not accurate for your particular monitor, so you can override scaling factors for particular monitors via environment variable.
+### Linux (x64)
+[![ZST](https://img.shields.io/badge/Linux_x64.zst-[42MB]-darkgreen)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.0/TimeCanvas_Linux_x64.zst)
 
-1. `xrandr --listactivemonitors` will give you output like this:
+### macOS (Apple Silicon / ARM64)
+[![GZ](https://img.shields.io/badge/macOS_ARM64.gz-[40MB]-white)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.0/TimeCanvas_OSX_ARM64.gz)
 
-`Monitors: 1
- 0: +*eDP-1 1920/344x1080/194+0+0  eDP-1`
+---
 
-eDP-1, HDMI-1, DP-1 are output names that your can configure DPI for.
+## ✨ What's New in v2.0
+* **Dynamic Task Management:** Add an unlimited number of tasks per day.
+* **True Historical Tracking:** Tasks are logged by calendar date, preserving your full history instead of overwriting weekdays.
+* **Advanced Efficiency Metrics:** Compare planned task duration against actual time used via a seamless dropdown upon completion.
+* **Cross-Platform Compatibility:** Native, optimized support for Windows, Linux, and macOS.
 
-2. Add `AVALONIA_SCREEN_SCALE_FACTORS` environment variable to your /etc/profile, $HOME/.profile or other suitable location and relogin.
+---
 
-Example:
-`AVALONIA_SCREEN_SCALE_FACTORS='eDP-1=2;HDMI-1=1;DP-1=1.5'`
+## 🛠️ For Developers
 
-this will set eDP-1 to 192 DPI, HDMI-1 to 96 DPI and DP-1 to 144 DPI.
+TimeCanvas is built using **.NET 10**, **C# 14**, and **Avalonia UI**. It follows the MVVM pattern and uses Entity Framework Core for local database management.
+
+### Build Instructions
+
+Ensure you have the `.NET 10 SDK` installed. Clone the repository and run the following commands from the directory containing `TimeCanvas.csproj` to publish the executables.
+
+```bash
+dotnet publish -c Release -r linux-x64
+dotnet publish -c Release -r win-x64
+dotnet publish -c Release -r osx-arm64
+
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Wayland Scaling Issue (Linux)
+
+Monitor DPI is calculated from values provided by the XRANDR extension. These might not be accurate for your particular monitor, causing scaling issues. You can override scaling factors via an environment variable.
+
+1. Find your output names by listing active monitors:
+```bash
+xrandr --listactivemonitors
+
+```
+
+*Example output:*
+`0: +*eDP-1 1920/344x1080/194+0+0  eDP-1`
+*(Outputs like `eDP-1`, `HDMI-1`, `DP-1` are the names you can configure).*
+
+2. Add the `AVALONIA_SCREEN_SCALE_FACTORS` environment variable to your `/etc/profile`, `$HOME/.profile`, or other suitable location and re-login.
+**Example:**
+```bash
+export AVALONIA_SCREEN_SCALE_FACTORS='eDP-1=2;HDMI-1=1;DP-1=1.5'
+
+```
+
+*(This sets eDP-1 to 192 DPI, HDMI-1 to 96 DPI, and DP-1 to 144 DPI).*
+
