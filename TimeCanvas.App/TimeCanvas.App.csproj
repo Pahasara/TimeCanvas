@@ -6,15 +6,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>TimeCanvas</RootNamespace>
-
-    <!-- Application Identity -->
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <ProductVersion>2.0.0.0</ProductVersion>
-    <Copyright>© Dewnith Fernando. All rights reserved.</Copyright>
+
+    <!-- Package & Assembly Info -->
+    <Product>TimeCanvas</Product>
+    <ProductVersion>2.0.1.0</ProductVersion>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
     <Company>Dewnith Fernando</Company>
+    <Copyright>© Dewnith Fernando. All rights reserved.</Copyright>
 
     <RuntimeIdentifiers>linux-x64;win-x64;osx-arm64</RuntimeIdentifiers>
     <Configurations>Debug;Release</Configurations>
@@ -64,7 +65,7 @@
     <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.1" />
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" Condition="'$(Configuration)' == 'Debug'" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>

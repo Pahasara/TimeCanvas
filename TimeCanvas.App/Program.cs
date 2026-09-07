@@ -1,9 +1,6 @@
 ﻿using Avalonia;
-using System;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using TimeCanvas.Core;
 using TimeCanvas.Core.Data;
 using TimeCanvas.Core.Data.CompiledModels;
@@ -14,7 +11,7 @@ namespace TimeCanvas;
 
 internal abstract class Program
 {
-    public static IHost AppHost { get; private set; } = null!;
+    public static IServiceProvider Services { get; private set; } = null!;
 
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -27,11 +24,11 @@ internal abstract class Program
 
         try
         {
-            AppHost = CreateHostBuilder(args).Build();
+            Services = BuildServices();
 
             // Apply any pending migrations — creates the schema on a brand-new
             // install, and brings an older install forward after an update.
-            using (var scope = AppHost.Services.CreateScope())
+            using (var scope = Services.CreateScope())
             {
                 var contextFactory = scope.ServiceProvider
                     .GetRequiredService<IDbContextFactory<TimeCanvasDbContext>>();
@@ -69,28 +66,30 @@ internal abstract class Program
             .WithInterFont()
             .LogToTrace();
 
-    private static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureServices((_, services) =>
-            {
-            services.AddDbContextFactory<TimeCanvasDbContext>(options =>
-                options
-                    .UseSqlite($"Data Source={AppPaths.DatabaseFile}")
-                    .UseModel(TimeCanvasDbContextModel.Instance));
+    private static IServiceProvider BuildServices()
+    {
+        var services = new ServiceCollection();
 
-                services.AddScoped<StatsService>();
-                services.AddScoped<ITaskService, TaskService>();
-                services.AddScoped<ITemplateService, TemplateService>();
+        services.AddDbContextFactory<TimeCanvasDbContext>(options =>
+            options
+                .UseSqlite($"Data Source={AppPaths.DatabaseFile}")
+                .UseModel(TimeCanvasDbContextModel.Instance));
 
-                services.AddTransient<MainWindowViewModel>();
-                services.AddTransient<Views.MainWindow>();
-                services.AddTransient<SettingsViewModel>();
-                services.AddTransient<Views.SettingsWindow>();
-                services.AddTransient<TrendViewModel>();
-                services.AddTransient<Views.TrendWindow>();
-                services.AddTransient<TemplateEditorViewModel>();
-                services.AddTransient<Views.TemplateEditorWindow>();
-                
-                services.AddSingleton<SettingsService>();
-            });
+        services.AddScoped<StatsService>();
+        services.AddScoped<ITaskService, TaskService>();
+        services.AddScoped<ITemplateService, TemplateService>();
+
+        services.AddTransient<MainWindowViewModel>();
+        services.AddTransient<Views.MainWindow>();
+        services.AddTransient<SettingsViewModel>();
+        services.AddTransient<Views.SettingsWindow>();
+        services.AddTransient<TrendViewModel>();
+        services.AddTransient<Views.TrendWindow>();
+        services.AddTransient<TemplateEditorViewModel>();
+        services.AddTransient<Views.TemplateEditorWindow>();
+
+        services.AddSingleton<SettingsService>();
+
+        return services.BuildServiceProvider();
+    }
 }

@@ -15,19 +15,19 @@ public partial class MainWindow : Window
 
         viewModel.SettingsRequested += async (_, _) =>
         {
-            var window = Program.AppHost.Services.GetRequiredService<SettingsWindow>();
+            var window = Program.Services.GetRequiredService<SettingsWindow>();
             await window.ShowDialog(this);
         };
 
         viewModel.HistoryRequested += async (_, _) =>
         {
-            var window = Program.AppHost.Services.GetRequiredService<TrendWindow>();
+            var window = Program.Services.GetRequiredService<TrendWindow>();
             await window.ShowDialog(this);
         };
 
         viewModel.TemplatesRequested += async (_, _) =>
         {
-            var window = Program.AppHost.Services.GetRequiredService<TemplateEditorWindow>();
+            var window = Program.Services.GetRequiredService<TemplateEditorWindow>();
             await window.ShowDialog(this);
         };
 
