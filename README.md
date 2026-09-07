@@ -13,13 +13,13 @@ TimeCanvas is a powerful, lightweight time management and task organization soft
 Available as standalone, highly-optimized executables. No installation required.
 
 ### Windows (x64)
-[![ZIP](https://img.shields.io/badge/Windows_x64.zip-[41MB]-blue)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.0/TimeCanvas_Windows_x64.zip)
+[![ZIP](https://img.shields.io/badge/Windows_x64.zip-[41MB]-blue)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.1/TimeCanvas_Windows_x64.zip)
 
 ### Linux (x64)
-[![ZST](https://img.shields.io/badge/Linux_x64.zst-[42MB]-darkgreen)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.0/TimeCanvas_Linux_x64.zst)
+[![ZST](https://img.shields.io/badge/Linux_x64.zst-[42MB]-darkgreen)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.1/TimeCanvas_Linux_x64.zst)
 
 ### macOS (Apple Silicon / ARM64)
-[![GZ](https://img.shields.io/badge/macOS_ARM64.gz-[40MB]-white)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.0/TimeCanvas_OSX_ARM64.gz)
+[![GZ](https://img.shields.io/badge/macOS_ARM64.gz-[40MB]-white)](https://github.com/Pahasara/TimeCanvas/releases/download/2.0.1/TimeCanvas_OSX_ARM64.gz)
 
 ---
 
